@@ -2,12 +2,12 @@ package com.wolfgang.tradetrail.core.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.wolfgang.tradetrail.core.data.api.TradeApi
+import com.wolfgang.tradetrail.core.data.remote.ProductApi
 import com.wolfgang.tradetrail.core.data.model.Product
 import javax.inject.Inject
 
 class ProductPagingSource @Inject constructor(
-    private val api: TradeApi
+    private val api: ProductApi
 ): PagingSource<Int, Product>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Product> {
         try {

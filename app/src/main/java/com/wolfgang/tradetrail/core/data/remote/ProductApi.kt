@@ -1,10 +1,10 @@
-package com.wolfgang.tradetrail.core.data.api
+package com.wolfgang.tradetrail.core.data.remote
 
 import com.wolfgang.tradetrail.core.data.model.ProductResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface TradeApi {
+interface ProductApi {
     @GET("products")
     suspend fun fetchProducts(
         @Query("limit") limit: Int = 20,

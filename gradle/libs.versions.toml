@@ -1,5 +1,6 @@
 [versions]
 agp = "8.11.0-alpha08"
+datastorePreferences = "1.2.0-alpha01"
 kotlin = "2.1.20"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -8,16 +9,20 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
 composeBom = "2025.04.01"
+navigationComposeVersion = "2.8.9"
 retrofit = "2.11.0"
 paging = "3.3.6"
 material = "1.12.0"
 hilt = "2.56.2"
 material3Android = "1.3.2"
-navigationCompose = "2.8.9"
 coil = "2.7.0"
+serialization = "1.8.1"
+serializationPlugin = "2.1.20"
 
 [libraries]
+datastorePreferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -41,8 +46,8 @@ okhttp-logging = { group = "com.squareup.okhttp3",   name = "logging-interceptor
 paging-runtime = { group = "androidx.paging",        name = "paging-runtime-ktx", version.ref = "paging" }
 paging-compose = { group = "androidx.paging",        name = "paging-compose",     version.ref = "paging" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
-androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -50,3 +55,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-kapt        = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 hilt               = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serializationPlugin" }

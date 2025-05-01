@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -50,12 +51,13 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.material3)
     implementation(libs.google.material)
     implementation(libs.hilt.android)
     implementation(libs.coil.compose)
+    kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    kapt (libs.hilt.compiler)
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.retrofit)
@@ -63,6 +65,7 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.paging.runtime)
     implementation(libs.paging.compose)
+    implementation(libs.datastorePreferences)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

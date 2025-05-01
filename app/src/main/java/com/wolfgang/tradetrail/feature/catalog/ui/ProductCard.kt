@@ -1,4 +1,4 @@
-package com.wolfgang.tradetrail.core.feature.catalog.ui
+package com.wolfgang.tradetrail.feature.catalog.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -27,7 +27,7 @@ fun ProductCard(product: Product, onClick: (Product) -> Unit = {}) {
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
             AsyncImage(
-                model = product.image,
+                model = product.thumbnail,
                 contentDescription = product.title,
                 modifier = Modifier
                     .height(150.dp)

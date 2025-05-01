@@ -1,6 +1,10 @@
 package com.wolfgang.tradetrail.core.data.di
 
-import com.wolfgang.tradetrail.core.data.repository.ProductRepoImpl
+import com.wolfgang.tradetrail.core.data.repository.AuthRepository
+import com.wolfgang.tradetrail.core.data.repository.AuthRepositoryImpl
+import com.wolfgang.tradetrail.core.data.repository.CartRepository
+import com.wolfgang.tradetrail.core.data.repository.CartRepositoryImpl
+import com.wolfgang.tradetrail.core.data.repository.ProductRepositoryImpl
 import com.wolfgang.tradetrail.core.data.repository.ProductRepository
 import dagger.Binds
 import dagger.Module
@@ -12,6 +16,16 @@ import dagger.hilt.components.SingletonComponent
 abstract class DataModule {
     @Binds
     abstract fun bindProductRepo(
-        productRepoImpl: ProductRepoImpl
+        productRepoImpl: ProductRepositoryImpl
     ): ProductRepository
+
+    @Binds
+    abstract fun bindCartRepo(
+        cartRepoImpl: CartRepositoryImpl
+    ): CartRepository
+
+    @Binds
+    abstract fun bindAuthRepo(
+        authRepoImpl: AuthRepositoryImpl
+    ): AuthRepository
 }
