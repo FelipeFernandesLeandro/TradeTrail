@@ -6,14 +6,18 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.wolfgang.tradetrail.core.designsystem.TradeTrailTheme
 import com.wolfgang.tradetrail.feature.auth.LoginScreen
 import com.wolfgang.tradetrail.feature.auth.LoginViewModel
 import com.wolfgang.tradetrail.feature.catalog.CatalogScreen
 import com.wolfgang.tradetrail.feature.catalog.CatalogViewModel
+import com.wolfgang.tradetrail.feature.catalog.ProductDetailScreen
+import com.wolfgang.tradetrail.navigation.NavKeys
 import com.wolfgang.tradetrail.navigation.Screen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,12 +46,21 @@ class MainActivity : ComponentActivity() {
                         CatalogScreen(
                             vm,
                             onProductClick = { product ->
-                                // TODO: add to cart / save it on SavedStateHandle
-                                navController.navigate(Screen.Checkout.route)
-                            }
+                                navController.navigate(Screen.ProductDetail.route(product.id))
+                            },
+                            onCartClick = { navController.navigate(Screen.Checkout.route) }
                         )
                     }
                     composable(Screen.Checkout.route) { CheckoutScreen() }
+                    composable(
+                        Screen.ProductDetail.route,
+                        listOf(navArgument(NavKeys.PRODUCT_ID) { type = NavType.IntType })
+                    ) {
+                        ProductDetailScreen(
+                            onBack = navController::popBackStack,
+                            onCartClick = { navController.navigate(Screen.Checkout.route) }
+                        )
+                    }
                 }
             }
         }

@@ -17,18 +17,18 @@ interface CartApi {
         @Path("userId") userId: Int
     ): CartResponse?
 
-    @POST("cart/add")
+    @POST("carts/add")
     suspend fun addToCart(
         @Body body: CartBody
     ): Cart
 
-    @PUT("cart/{cartId}")
+    @PUT("carts/{cartId}")
     suspend fun updateCart(
         @Path("cartId") cartId: Int,
         @Body body: UpdateCartBody
     ): Cart
 
-    @DELETE("cart/{cartId}")
+    @DELETE("carts/{cartId}")
     suspend fun deleteCart(
         @Path("cartId") cartId: Int
     ): Cart

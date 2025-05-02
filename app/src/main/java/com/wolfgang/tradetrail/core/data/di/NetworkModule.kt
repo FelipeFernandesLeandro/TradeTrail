@@ -9,6 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -25,7 +26,12 @@ object NetworkModule {
 
     @Provides
     fun provideOkHttp(auth: AuthInterceptor) =
-        OkHttpClient.Builder().addInterceptor(auth).build()
+        OkHttpClient.Builder()
+            .addInterceptor(auth)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+            .build()
 
     @Provides @Singleton
     fun provideAuthApi(retrofit: Retrofit): AuthApi =

@@ -15,6 +15,8 @@ interface ProductRepository {
     suspend fun all(): ProductResponse
 
     fun allPaged(): Flow<PagingData<Product>>
+
+    suspend fun fetchProduct(id: String): Product
 }
 
 class ProductRepositoryImpl @Inject constructor(private val api: ProductApi) : ProductRepository {
@@ -23,4 +25,6 @@ class ProductRepositoryImpl @Inject constructor(private val api: ProductApi) : P
     override fun allPaged(): Flow<PagingData<Product>> = Pager(PagingConfig(20)) {
         ProductPagingSource(api)
     }.flow
+
+    override suspend fun fetchProduct(id: String): Product = api.fetchProduct(id)
 }
