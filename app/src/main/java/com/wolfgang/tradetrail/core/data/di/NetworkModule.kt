@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
     @Provides
-    fun provideRetrofit(ok: OkHttpClient) = Retrofit.Builder()
+    fun provideRetrofit(ok: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl("https://dummyjson.com")
         .client(ok)
         .addConverterFactory(GsonConverterFactory.create())

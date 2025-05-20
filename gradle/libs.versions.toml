@@ -1,6 +1,7 @@
 [versions]
 agp = "8.11.0-alpha08"
 datastorePreferences = "1.2.0-alpha02"
+foundation = "1.8.1"
 kotlin = "2.1.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -11,7 +12,7 @@ activityCompose = "1.10.1"
 composeBom = "2025.05.00"
 lottieCompose = "6.6.6"
 navigationComposeVersion = "2.9.0"
-retrofit = "2.11.0"
+retrofit = "3.0.0"
 paging = "3.3.6"
 material = "1.12.0"
 hilt = "2.56.2"
@@ -23,6 +24,7 @@ room = "2.7.1"
 ksp = "2.1.20-2.0.1"
 
 [libraries]
+androidx-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "foundation" }
 datastorePreferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
