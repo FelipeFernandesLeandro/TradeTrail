@@ -23,15 +23,10 @@ data class Cart(
 
 data class CartBody(
 	val userId: Int,
-	val products: List<ProductReference>
-)
-
-
-data class UpdateCartBody(
-	val userId: Int,
 	val products: List<ProductReference>,
 	val merge: Boolean = true
 )
+
 
 data class ProductReference(
 	val id: Int,

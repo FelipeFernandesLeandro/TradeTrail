@@ -31,6 +31,6 @@ class CatalogViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 0)
 
     fun addToCart(product: Product) = viewModelScope.launch {
-        cartRepo.add(product.id, 1)
+        cartRepo.add(product, 1)
     }
 }

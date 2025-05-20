@@ -1,23 +1,22 @@
 package com.wolfgang.tradetrail.feature.catalog
 
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
-import com.wolfgang.tradetrail.core.data.repository.CartRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.compose.NavHost
 import com.wolfgang.tradetrail.core.data.model.Product
+import com.wolfgang.tradetrail.core.data.repository.CartRepository
 import com.wolfgang.tradetrail.core.data.repository.ProductRepository
 import com.wolfgang.tradetrail.navigation.NavKeys
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
@@ -50,6 +49,6 @@ class ProductDetailViewModel @Inject constructor(
     }
 
     fun addToCart(product: Product) = viewModelScope.launch {
-        cartRepo.add(product.id, 1)
+        cartRepo.add(product, 1)
     }
 }

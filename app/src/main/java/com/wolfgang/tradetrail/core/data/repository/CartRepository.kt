@@ -1,69 +1,77 @@
 package com.wolfgang.tradetrail.core.data.repository
 
+import com.wolfgang.tradetrail.core.data.local.dao.CartDao
+import com.wolfgang.tradetrail.core.data.local.entity.CartItemEntity
+import com.wolfgang.tradetrail.core.data.local.mapper.toDomain
+import com.wolfgang.tradetrail.core.data.local.mapper.toRemote
 import com.wolfgang.tradetrail.core.data.model.Cart
-import com.wolfgang.tradetrail.core.data.model.CartBody
-import com.wolfgang.tradetrail.core.data.model.CartResponse
-import com.wolfgang.tradetrail.core.data.model.ProductReference
-import com.wolfgang.tradetrail.core.data.model.UpdateCartBody
+import com.wolfgang.tradetrail.core.data.model.Product
 import com.wolfgang.tradetrail.core.data.remote.CartApi
 import com.wolfgang.tradetrail.core.data.session.SessionManager
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 interface CartRepository {
     val current: StateFlow<Cart?>
-    suspend fun refresh(userId: Int): CartResponse?
-    suspend fun add(productId: Int, quantity: Int = 1): Cart
-    suspend fun changeQuantity(productId: Int, quantity: Int): Cart
-    suspend fun remove(productId: Int): Cart
+    suspend fun add(product: Product, quantity: Int = 1)
+    suspend fun changeQuantity(productId: Int, quantity: Int)
+    suspend fun remove(productId: Int)
     suspend fun clear()
+
+    suspend fun checkout(userId: Int): Result<Cart>
 }
 
-class CartRepositoryImpl @Inject constructor(private val api: CartApi, private val session: SessionManager): CartRepository {
-    private val _current = MutableStateFlow<Cart?>(null)
-    override val current: StateFlow<Cart?> = _current
+class CartRepositoryImpl @Inject constructor(
+    private val api: CartApi,
+    private val session: SessionManager,
+    private val dao: CartDao
+): CartRepository {
 
-    override suspend fun refresh(userId: Int): CartResponse? {
-        val response = api.getCartByUser(userId)
-        _current.value = response?.carts?.firstOrNull()
-        return response
+    override val current: StateFlow<Cart?> =
+        dao.observeAll()
+            .map { entities ->
+                entities.takeIf { it.isNotEmpty() }?.toDomain()
+            }
+            .stateIn(
+                scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
+                started = SharingStarted.Eagerly,
+                initialValue = null
+            )
+
+    override suspend fun add(product: Product, quantity: Int) {
+        val item = CartItemEntity(
+            productId = product.id,
+            title = product.title,
+            price = product.price,
+            thumbnail = product.thumbnail,
+            quantity = quantity + (dao.getQuantity(product.id) ?: 0)
+        )
+        dao.upsert(item)
     }
 
-    override suspend fun add(productId: Int, quantity: Int): Cart {
-        val cart = _current.value
-        val products = listOf(ProductReference(productId, quantity))
-        val userId: Int = session.userIdFlow.firstOrNull() ?: 1
-
-        if (cart != null) {
-            val body = UpdateCartBody(userId, products, true)
-            api.updateCart(cart.id, body)
-        } else {
-            val body = CartBody(userId, products)
-            api.addToCart(body)
-        }.also {
-            _current.value = it
-            return it
-        }
+    override suspend fun changeQuantity(productId: Int, quantity: Int) {
+        if (quantity > 0) dao.updateQuantity(productId, quantity)
+        else dao.delete(productId)
     }
 
-    override suspend fun changeQuantity(productId: Int, quantity: Int): Cart {
-        val cartId = requireNotNull(_current.value?.id) { "Cart not initialized" }
-        val userId: Int = session.userIdFlow.firstOrNull() ?: 1
-        val body = UpdateCartBody(userId, listOf(ProductReference(productId, quantity)), false)
-        val updatedCart = api.updateCart(cartId, body)
-
-        _current.value = updatedCart
-        return updatedCart
-    }
-
-    override suspend fun remove(productId: Int): Cart {
-        return changeQuantity(productId, 0)
+    override suspend fun remove(productId: Int) {
+        return dao.delete(productId)
     }
 
     override suspend fun clear() {
-        _current.value?.let { api.deleteCart(it.id) }
-        _current.value = null
+        dao.clear()
+    }
+
+    override suspend fun checkout(userId: Int): Result<Cart> = runCatching {
+        checkNotNull(current.value)
+        val payload = current.value!!.toRemote(userId)
+        api.addToCart(payload)
+            .also { clear() }
     }
 }

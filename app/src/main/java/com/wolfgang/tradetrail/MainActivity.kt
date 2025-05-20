@@ -17,6 +17,7 @@ import com.wolfgang.tradetrail.feature.auth.LoginViewModel
 import com.wolfgang.tradetrail.feature.catalog.CatalogScreen
 import com.wolfgang.tradetrail.feature.catalog.CatalogViewModel
 import com.wolfgang.tradetrail.feature.catalog.ProductDetailScreen
+import com.wolfgang.tradetrail.feature.checkout.CheckoutScreen
 import com.wolfgang.tradetrail.navigation.NavKeys
 import com.wolfgang.tradetrail.navigation.Screen
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,7 +52,11 @@ class MainActivity : ComponentActivity() {
                             onCartClick = { navController.navigate(Screen.Checkout.route) }
                         )
                     }
-                    composable(Screen.Checkout.route) { CheckoutScreen() }
+                    composable(Screen.Checkout.route) {
+                        CheckoutScreen(onBack = navController::popBackStack, onPay = {
+                            navController.popBackStack(Screen.Catalog.route, false)
+                        }
+                        ) }
                     composable(
                         Screen.ProductDetail.route,
                         listOf(navArgument(NavKeys.PRODUCT_ID) { type = NavType.IntType })
@@ -68,6 +73,6 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CheckoutScreen() {
+fun PayoutScreen() {
     /* cart summary */
 }
