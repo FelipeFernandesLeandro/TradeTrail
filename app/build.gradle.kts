@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.paging.compose)
     implementation(libs.datastorePreferences)
     implementation(libs.lottie.compose)
+    implementation(libs.androidx.foundation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
