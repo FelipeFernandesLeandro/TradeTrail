@@ -52,14 +52,15 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
+
+    implementation(libs.material)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.material3)
-    implementation(libs.google.material)
     implementation(libs.hilt.android)
     implementation(libs.coil.compose)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    implementation(libs.androidx.material3.android)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -77,7 +78,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.androidx.room.testing)
-    debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
