@@ -87,8 +87,8 @@ fun ProductCard(
                 onClick = { onAddToCart(product) },
                 modifier = Modifier
                     .align(Alignment.TopEnd)
-                    .padding(32.dp)
-                    .size(48.dp)
+                    .padding(16.dp)
+                    .size(24.dp)
                     .background(
                         color  = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
                         shape  = CircleShape
@@ -98,12 +98,12 @@ fun ProductCard(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Add",
                     tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
 
             Surface(
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
                 tonalElevation  = 2.dp,
                 shape           = RoundedCornerShape(12.dp),
                 modifier        = Modifier
@@ -116,19 +116,19 @@ fun ProductCard(
                         text      = product.title,
                         maxLines  = 1,
                         style     = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onPrimary
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Spacer(Modifier.height(4.dp))
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                         Text(
                             text = product.category,
                             style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
                             text = product.price.formatted(),
                             style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }

@@ -28,7 +28,7 @@ fun CatalogScreen(
     val cartCount by vm.cartCount.collectAsState(0)
 
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TTAppBar("Catalog",
                 cartCount = cartCount,
@@ -41,7 +41,7 @@ fun CatalogScreen(
             GridCells.Fixed(2),
             Modifier
                 .padding(innerPadding)
-                .background(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                .background(color = MaterialTheme.colorScheme.background),
             contentPadding     = PaddingValues(
                 horizontal = 24.dp,
                 vertical   = 24.dp
