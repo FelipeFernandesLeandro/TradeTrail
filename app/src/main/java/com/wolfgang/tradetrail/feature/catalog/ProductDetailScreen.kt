@@ -73,6 +73,7 @@ fun ProductDetailScreen(
         state.error != null   -> { Error(state.error); return }
         state.product == null -> return
     }
+
     val product          = state.product
     val cartCount  by vm.cartCount.collectAsState(0)
     val snackHost        = remember { SnackbarHostState() }
@@ -189,10 +190,10 @@ private fun BottomSheetBody(p: Product) = Column(
 }
 
 @Composable private fun Loading() =
-    Box(Modifier.fillMaxSize(), Alignment.Center) { CircularProgressIndicator() }
+    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), Alignment.Center) { CircularProgressIndicator() }
 
 @Composable private fun Error(msg: String) =
-    Box(Modifier.fillMaxSize(), Alignment.Center) { Text("Error: $msg") }
+    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), Alignment.Center) { Text("Error: $msg") }
 
 @Composable private fun AddToCartButton(modifier: Modifier = Modifier, onClick: () -> Unit) = Button(
     onClick = { onClick() },

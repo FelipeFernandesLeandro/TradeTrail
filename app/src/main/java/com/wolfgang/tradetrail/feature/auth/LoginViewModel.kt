@@ -23,8 +23,11 @@ class LoginViewModel @Inject constructor(
     fun togglePasswordVisibility() { uiState = uiState.copy(isPasswordVisible = !uiState.isPasswordVisible) }
 
     fun login() = viewModelScope.launch {
-        runCatching { repo.login(uiState.username, uiState.password) }
-            .onSuccess { uiState = uiState.copy(success = true) }
-            .onFailure { uiState = uiState.copy(error = it.message) }
+        runCatching {
+            uiState = uiState.copy(isLoading = true)
+            repo.login(uiState.username, uiState.password)
+        }
+            .onSuccess { uiState = uiState.copy(success = true, isLoading = false, error = null) }
+            .onFailure { uiState = uiState.copy(error = it.message, isLoading = false, success = false) }
     }
 }

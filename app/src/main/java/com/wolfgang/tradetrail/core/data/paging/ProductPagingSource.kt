@@ -2,8 +2,8 @@ package com.wolfgang.tradetrail.core.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.wolfgang.tradetrail.core.data.remote.ProductApi
 import com.wolfgang.tradetrail.core.data.model.Product
+import com.wolfgang.tradetrail.core.data.remote.ProductApi
 import javax.inject.Inject
 
 class ProductPagingSource @Inject constructor(

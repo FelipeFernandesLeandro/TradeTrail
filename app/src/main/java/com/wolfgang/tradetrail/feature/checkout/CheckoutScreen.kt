@@ -1,10 +1,12 @@
 package com.wolfgang.tradetrail.feature.checkout
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +43,7 @@ fun CheckoutScreen(
             )
         },
         bottomBar = {
-            if (uiState.items.isNotEmpty() && !uiState.loading && uiState.error == null && !uiState.success) {
+            if (uiState.items.isNotEmpty() && !uiState.isLoading && uiState.error == null && !uiState.success) {
                 OrderSummary(uiState.total, uiState.discountedTotal) {
                     vm.checkout()
                 }
@@ -50,12 +52,19 @@ fun CheckoutScreen(
     ) { padding ->
         Box(modifier = Modifier.padding(padding)) {
             when {
-                uiState.loading -> Box(
-                    Modifier.fillMaxSize(),
+                uiState.isLoading -> Box(
+                    Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background),
                     Alignment.Center
                 ) { CircularProgressIndicator() }
 
-                uiState.error != null -> Box(Modifier.fillMaxSize(), Alignment.Center) {
+                uiState.error != null -> Box(
+                    Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background),
+                    Alignment.Center
+                ) {
                     Text(
                         uiState.error!!
                     )

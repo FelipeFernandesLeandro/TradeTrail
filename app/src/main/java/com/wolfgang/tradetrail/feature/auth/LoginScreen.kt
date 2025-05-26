@@ -132,18 +132,18 @@ fun LoginScreen(vm: LoginViewModel, onSuccess: () -> Unit) {
                 enabled = !state.isLoading,
                 onClick = vm::login,
                 modifier = Modifier.fillMaxWidth(),
-                shape = MaterialTheme.shapes.large,
+                shape = MaterialTheme.shapes.small,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
-                if (state.isLoading) CircularProgressIndicator(modifier = Modifier.size(16.dp))
+                if (state.isLoading) CircularProgressIndicator()
                 else Text("Login")
             }
             state.error?.let {
                 Snackbar(modifier = Modifier.background(MaterialTheme.colorScheme.error)) {
-                    Text(it, style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold))
+                    Text("Check your credentials", style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold))
                 }
             }
         }

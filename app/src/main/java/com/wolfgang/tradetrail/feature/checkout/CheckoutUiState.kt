@@ -7,7 +7,7 @@ data class CheckoutUiState(
     val total: Double = .0,
     val discountedTotal: Double = .0,
     val totalQuantity: Int = 0,
-    val loading: Boolean = false,
+    val isLoading: Boolean = false,
     val success: Boolean = false,
     val error: String? = null
 )

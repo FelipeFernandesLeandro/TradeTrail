@@ -1,5 +1,8 @@
 package com.wolfgang.tradetrail.feature.catalog
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -20,6 +23,9 @@ class CatalogViewModel @Inject constructor(
     repo: ProductRepository,
     private val cartRepo: CartRepository,
 ) : ViewModel() {
+    var uiState by mutableStateOf(CatalogUiState())
+        private set
+
     val products = repo.allPaged().cachedIn(viewModelScope).stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
@@ -32,5 +38,9 @@ class CatalogViewModel @Inject constructor(
 
     fun addToCart(product: Product) = viewModelScope.launch {
         cartRepo.add(product, 1)
+    }
+
+    fun errorShown() {
+        uiState = uiState.copy(error = null)
     }
 }

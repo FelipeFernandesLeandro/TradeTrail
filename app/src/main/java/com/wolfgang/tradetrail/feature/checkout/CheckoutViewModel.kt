@@ -22,13 +22,13 @@ class CheckoutViewModel @Inject constructor(
     val uiState: StateFlow<CheckoutUiState> =
         combine(repo.current, _checkoutSuccess) { cart, isSuccess ->
             val baseState = when (cart) {
-                null -> CheckoutUiState(emptyList(), 0.0, 0.0, 0, loading = false)
+                null -> CheckoutUiState(emptyList(), 0.0, 0.0, 0, isLoading = false)
                 else -> CheckoutUiState(
                     items = cart.products.map { it.toUi() },
                     total = cart.total,
                     discountedTotal = cart.discountedTotal,
                     totalQuantity = cart.totalQuantity,
-                    loading = false
+                    isLoading = false
                 )
             }
             baseState.copy(success = isSuccess)
@@ -36,7 +36,7 @@ class CheckoutViewModel @Inject constructor(
             .stateIn(
                 viewModelScope,
                 SharingStarted.Eagerly,
-                CheckoutUiState(loading = true, success = _checkoutSuccess.value)
+                CheckoutUiState(isLoading = true, success = _checkoutSuccess.value)
             )
 
     fun remove(id: Int) = viewModelScope.launch { repo.remove(id) }
