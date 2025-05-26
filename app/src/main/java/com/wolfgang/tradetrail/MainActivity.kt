@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TradeTrailTheme {
+            TradeTrailTheme(useDarkTheme = true) {
                 val navController = rememberNavController()
                 NavHost(
                     navController,
@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                         CheckoutScreen(onBack = navController::popBackStack, onPay = {
                             navController.popBackStack(Screen.Catalog.route, false)
                         }
-                        ) }
+                    ) }
                     composable(
                         Screen.ProductDetail.route,
                         listOf(navArgument(NavKeys.PRODUCT_ID) { type = NavType.IntType })

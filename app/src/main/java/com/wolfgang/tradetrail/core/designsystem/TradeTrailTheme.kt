@@ -2,6 +2,7 @@ package com.wolfgang.tradetrail.core.designsystem
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
@@ -11,90 +12,138 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.shape.RoundedCornerShape
+import com.wolfgang.tradetrail.R
 
-private val LightColorScheme = lightColorScheme(
-    primary            = Color(0xFF0057D9),
-    onPrimary          = Color(0xFFFFFFFF),
-    primaryContainer   = Color(0xFFD4E3FF),
-    onPrimaryContainer = Color(0xFF001A41),
-    secondary          = Color(0xFFFA6400),
-    onSecondary        = Color(0xFFFFFFFF),
-    secondaryContainer = Color(0xFFFFE1D0),
-    onSecondaryContainer = Color(0xFF291200),
-    tertiary           = Color(0xFF16B26E),
-    onTertiary         = Color(0xFFFFFFFF),
-    tertiaryContainer  = Color(0xFFBAF2D5),
-    onTertiaryContainer = Color(0xFF00210D),
-    error              = Color(0xFFB3261E),
-    onError            = Color(0xFFFFFFFF),
-    errorContainer     = Color(0xFFF9DEDC),
-    onErrorContainer   = Color(0xFF410E0B),
-    background         = Color(0xFFFFFFFF),
-    onBackground       = Color(0xFF1C1B1F),
-    surface            = Color(0xFFFFFFFF),
-    onSurface          = Color(0xFF1C1B1F),
-    surfaceVariant     = Color(0xFFE1E2EC),
-    onSurfaceVariant   = Color(0xFF44464F),
-    outline            = Color(0xFF74777F)
+val Poppins = FontFamily(
+    Font(R.font.poppins_regular, FontWeight.Normal),
+    Font(R.font.poppins_medium, FontWeight.Medium),
+    Font(R.font.poppins_semibold, FontWeight.SemiBold),
+    Font(R.font.poppins_bold, FontWeight.Bold)
 )
 
+// --- Novas Cores ---
+val Gold = Color(0xFFB79A62)
+val Red = Color(0xFFD93F3F)
+val OffWhite = Color(0xFFF8F8F8)
+val Yellow = Color(0xFFFE9D0A)
+val DarkGrey = Color(0xFF424242)
+val DarkerGrey = Color(0xFF2D2D2D)
+val Black = Color(0xFF000000)
+val LightGrey = Color(0xFFF5F5F5)
+val TextGrey = Color(0xFF888888)
+
 private val DarkColorScheme = darkColorScheme(
-    primary            = Color(0xFFA8C7FF),
-    onPrimary          = Color(0xFF00306F),
-    primaryContainer   = Color(0xFF00479D),
-    onPrimaryContainer = Color(0xFFD4E3FF),
-    secondary          = Color(0xFFFFB783),
-    onSecondary        = Color(0xFF4A1E00),
-    secondaryContainer = Color(0xFF6A3900),
-    onSecondaryContainer = Color(0xFFFFE1D0),
-    tertiary           = Color(0xFF78D9B0),
-    onTertiary         = Color(0xFF003821),
-    tertiaryContainer  = Color(0xFF005232),
-    onTertiaryContainer = Color(0xFFBAF2D5),
-    error              = Color(0xFFF2B8B5),
-    onError            = Color(0xFF601410),
-    errorContainer     = Color(0xFF8C1D18),
-    onErrorContainer   = Color(0xFFF9DEDC),
-    background         = Color(0xFF1C1B1F),
-    onBackground       = Color(0xFFE6E1E5),
-    surface            = Color(0xFF1C1B1F),
-    onSurface          = Color(0xFFE6E1E5),
-    surfaceVariant     = Color(0xFF44464F),
-    onSurfaceVariant   = Color(0xFFC5C6D0),
-    outline            = Color(0xFF8E9099)
+    primary = Gold,
+    onPrimary = Black,
+    primaryContainer = Color(0xFF5E450F),
+    onPrimaryContainer = OffWhite,
+    secondary = DarkGrey,
+    onSecondary = OffWhite,
+    secondaryContainer = Color(0xFF333333),
+    onSecondaryContainer = OffWhite,
+    tertiary = Red,
+    onTertiary = OffWhite,
+    tertiaryContainer = Color(0xFF6E2020),
+    onTertiaryContainer = OffWhite,
+    error = Red,
+    onError = Black,
+    background = DarkerGrey,
+    onBackground = OffWhite,
+    surface = DarkerGrey,
+    onSurface = OffWhite,
+    surfaceVariant = DarkGrey,
+    onSurfaceVariant = OffWhite,
+    outline = DarkGrey
+)
+
+private val LightColorScheme = lightColorScheme(
+    primary = Gold,
+    onPrimary = OffWhite,
+    primaryContainer = Color(0xFFF0E5D1),
+    onPrimaryContainer = Black,
+    secondary = DarkGrey,
+    onSecondary = OffWhite,
+    secondaryContainer = Color(0xFFE0E0E0),
+    onSecondaryContainer = Black,
+    tertiary = Red,
+    onTertiary = OffWhite,
+    tertiaryContainer = Color(0xFFF5C6C6),
+    onTertiaryContainer = Black,
+    error = Red,
+    onError = OffWhite,
+    background = LightGrey,
+    onBackground = Black,
+    surface = OffWhite,
+    onSurface = Black,
+    surfaceVariant = Color(0xFFE0E0E0),
+    onSurfaceVariant = Black,
+    outline = Color(0xFFCCCCCC)
 )
 
 private val AppTypography = Typography(
+    headlineLarge = TextStyle(
+        fontFamily = Poppins,
+        fontWeight = FontWeight.Bold,
+        fontSize = 38.sp,
+        lineHeight = 44.sp,
+        letterSpacing = 0.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = Poppins,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp,
+        lineHeight = 30.sp,
+        letterSpacing = 0.sp
+    ),
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = Poppins,
         fontWeight = FontWeight.Normal,
-        fontSize   = 16.sp
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = Poppins,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.25.sp
     ),
     titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = Poppins,
         fontWeight = FontWeight.SemiBold,
-        fontSize   = 20.sp
+        fontSize = 22.sp,
+        lineHeight = 28.sp,
+        letterSpacing = 0.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = Poppins,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.1.sp
     )
 )
 
 private val AppShapes = Shapes(
-    small  = RoundedCornerShape(4.dp),
-    medium = RoundedCornerShape(8.dp),
-    large  = RoundedCornerShape(0.dp)
+    small = RoundedCornerShape(8.dp),
+    medium = RoundedCornerShape(12.dp),
+    large = RoundedCornerShape(16.dp),
+    extraLarge = RoundedCornerShape(24.dp)
 )
 
 @Composable
 fun TradeTrailTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme: ColorScheme = when {
@@ -109,8 +158,8 @@ fun TradeTrailTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography  = AppTypography,
-        shapes      = AppShapes,
-        content     = content
+        typography = AppTypography,
+        shapes = AppShapes,
+        content = content
     )
 }
