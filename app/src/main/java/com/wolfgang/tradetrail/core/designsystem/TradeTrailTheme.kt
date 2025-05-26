@@ -38,11 +38,11 @@ val DarkGrey = Color(0xFF424242)
 val DarkerGrey = Color(0xFF2D2D2D)
 val Black = Color(0xFF000000)
 val LightGrey = Color(0xFFF5F5F5)
-val TextGrey = Color(0xFF888888)
+val TextGrey = Color(0xFFA0A0A0)
 
 private val DarkColorScheme = darkColorScheme(
     primary = Gold,
-    onPrimary = Black,
+    onPrimary = OffWhite,
     primaryContainer = Color(0xFF5E450F),
     onPrimaryContainer = OffWhite,
     secondary = DarkGrey,

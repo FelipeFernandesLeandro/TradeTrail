@@ -1,5 +1,8 @@
 package com.wolfgang.tradetrail.feature.checkout.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,22 +33,28 @@ import com.wolfgang.tradetrail.feature.checkout.formatted
 @Composable
 fun CartItemRow(
     item: CartItemUi,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    onProductClick: (Int) -> Unit
 ) {
     Row(
         Modifier
             .fillMaxWidth()
+            .clickable { onProductClick(item.productId) }
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        AsyncImage(
-            model = item.thumbnail,
-            contentDescription = item.title,
-            modifier = Modifier
-                .size(64.dp)
-                .clip(RoundedCornerShape(8.dp)),
-            contentScale = ContentScale.Crop
-        )
+        Box(Modifier
+            .clip(RoundedCornerShape(16.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+        ) {
+            AsyncImage(
+                model = item.thumbnail,
+                contentDescription = item.title,
+                modifier = Modifier
+                    .size(64.dp),
+                contentScale = ContentScale.Crop
+            )
+        }
         Spacer(Modifier.width(8.dp))
         Column(modifier = Modifier.weight(1f)) {
             Text(
@@ -63,7 +72,7 @@ fun CartItemRow(
         IconButton(onClick = onDelete) {
             Icon(
                 imageVector = Icons.Default.Delete,
-                contentDescription = "Remover item"
+                contentDescription = "Remove item"
             )
         }
     }

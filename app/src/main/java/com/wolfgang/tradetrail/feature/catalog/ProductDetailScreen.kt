@@ -197,7 +197,7 @@ private fun BottomSheetBody(p: Product) = Column(
 @Composable private fun AddToCartButton(modifier: Modifier = Modifier, onClick: () -> Unit) = Button(
     onClick = { onClick() },
     modifier = modifier
-        .padding(horizontal = 16.dp, vertical = 8.dp)
+        .padding(horizontal = 16.dp, vertical = 24.dp)
         .navigationBarsPadding()
         .fillMaxWidth(),
     colors = ButtonDefaults.buttonColors(

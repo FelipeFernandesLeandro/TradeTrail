@@ -53,9 +53,14 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable(Screen.Checkout.route) {
-                        CheckoutScreen(onBack = navController::popBackStack, onPay = {
-                            navController.popBackStack(Screen.Catalog.route, false)
-                        }
+                        CheckoutScreen(
+                            onBack = navController::popBackStack,
+                            onPay = {
+                                navController.popBackStack(Screen.Catalog.route, false)
+                            },
+                            onProductClick = { productId ->
+                                navController.navigate(Screen.ProductDetail.route(productId))
+                            }
                     ) }
                     composable(
                         Screen.ProductDetail.route,

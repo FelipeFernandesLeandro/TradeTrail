@@ -51,4 +51,6 @@ class CheckoutViewModel @Inject constructor(
     fun resetCheckoutSuccess() {
         _checkoutSuccess.value = false
     }
+
+    fun clear() = viewModelScope.launch { repo.clear() }
 }
