@@ -1,8 +1,8 @@
 package com.wolfgang.tradetrail.feature.auth
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wolfgang.tradetrail.core.data.repository.AuthRepository
@@ -19,6 +19,8 @@ class LoginViewModel @Inject constructor(
 
     fun updateUser(text: String) { uiState = uiState.copy(username = text) }
     fun updatePassword(text: String) { uiState = uiState.copy(password = text) }
+
+    fun togglePasswordVisibility() { uiState = uiState.copy(isPasswordVisible = !uiState.isPasswordVisible) }
 
     fun login() = viewModelScope.launch {
         runCatching { repo.login(uiState.username, uiState.password) }
