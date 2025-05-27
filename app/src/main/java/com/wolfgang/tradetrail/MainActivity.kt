@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -16,8 +17,8 @@ import com.wolfgang.tradetrail.feature.auth.LoginScreen
 import com.wolfgang.tradetrail.feature.auth.LoginViewModel
 import com.wolfgang.tradetrail.feature.catalog.CatalogScreen
 import com.wolfgang.tradetrail.feature.catalog.CatalogViewModel
-import com.wolfgang.tradetrail.feature.product_detail.ProductDetailScreen
 import com.wolfgang.tradetrail.feature.checkout.CheckoutScreen
+import com.wolfgang.tradetrail.feature.product_detail.ProductDetailScreen
 import com.wolfgang.tradetrail.navigation.NavKeys
 import com.wolfgang.tradetrail.navigation.Screen
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +26,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {

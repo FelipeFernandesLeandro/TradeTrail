@@ -1,5 +1,6 @@
 [versions]
-agp = "8.11.0-alpha10"
+agp = "8.12.0-alpha02"
+coreSplashscreen = "1.0.1"
 datastorePreferences = "1.2.0-alpha02"
 foundation = "1.8.2"
 kotlin = "2.1.21"
@@ -23,6 +24,7 @@ room = "2.7.1"
 ksp = "2.1.20-2.0.1"
 
 [libraries]
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "foundation" }
 androidx-material-icons-core = { module = "androidx.compose.material:material-icons-core" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
