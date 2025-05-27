@@ -28,7 +28,7 @@ fun paymentSuccessAnimation(): Float {
         LottieAnimation(
             composition = composition,
             progress    = { animationState },
-            modifier    = Modifier.size(200.dp)
+            modifier    = Modifier.size(800.dp)
         )
     }
 

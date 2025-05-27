@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -47,12 +48,15 @@ import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.wolfgang.tradetrail.core.data.model.Product
+import com.wolfgang.tradetrail.core.designsystem.TextGrey
 import com.wolfgang.tradetrail.core.designsystem.Yellow
 import com.wolfgang.tradetrail.core.designsystem.component.TTAppBar
 import com.wolfgang.tradetrail.feature.catalog.ui.ProductImageCarousel
+import com.wolfgang.tradetrail.feature.catalog.ui.ProductInfoRow
+import com.wolfgang.tradetrail.feature.catalog.ui.ProductReviewItem
 import com.wolfgang.tradetrail.feature.checkout.formatted
 import kotlinx.coroutines.flow.filterNotNull
+import java.util.Locale as JavaUtilLocale
 
 /**
  * Product‑detail screen where the hero image starts occupying 65% of the screen when the
@@ -131,19 +135,19 @@ fun ProductDetailScreen(
     /* ---------- UI ---------- */
     Box(modifier = Modifier.fillMaxSize()) {
         BottomSheetScaffold(
-            scaffoldState   = scaffoldState,
-            containerColor  = Color.Transparent,
+            scaffoldState = scaffoldState,
+            containerColor = Color.Transparent,
             sheetContainerColor = MaterialTheme.colorScheme.surface,
             sheetPeekHeight = peekHeightDp,
-            sheetShape      = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
-            snackbarHost    = { SnackbarHost(snackHost) },
-            sheetContent    = { BottomSheetBody(product) },
+            sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+            snackbarHost = { SnackbarHost(snackHost) },
+            sheetContent = { BottomSheetBody(state) },
             topBar = {
                 TTAppBar(
-                    title       = product.title,
-                    color    = MaterialTheme.colorScheme.surfaceVariant,
-                    onBack      = onBack,
-                    cartCount   = cartCount,
+                    title = product.title,
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    onBack = onBack,
+                    cartCount = cartCount,
                     onCartClick = onCartClick,
                 )
             },
@@ -167,33 +171,77 @@ fun ProductDetailScreen(
 
 /* --------------------------------‑ helpers -------------------------------- */
 @Composable
-private fun BottomSheetBody(p: Product) = Column(
-    Modifier
-        .fillMaxWidth()
-        .verticalScroll(rememberScrollState())
-        .padding(24.dp)
-        .navigationBarsPadding(),
-) {
-    Text(p.title, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold)
-    Spacer(Modifier.height(16.dp))
-    Text(p.price.formatted(), style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
-    Spacer(Modifier.height(16.dp))
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        repeat(5) { Icon(Icons.Default.Star, null, tint = Yellow, modifier = Modifier.size(16.dp)) }
-        Spacer(Modifier.width(8.dp))
-        Text("4.8k", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
+private fun BottomSheetBody(uiState: ProductDetailUiState) {
+    val p = uiState.product!!
+    val averageRating = uiState.averageRating
+    val reviewCount = uiState.reviewCount
+
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 24.dp, vertical = 24.dp)
+            .padding(bottom = 80.dp)
+            .navigationBarsPadding(),
+    ) {
+        Text(p.title, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold)
+        Spacer(Modifier.height(16.dp))
+        Text(p.price.formatted(), style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
+        Spacer(Modifier.height(16.dp))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            repeat(5) { index ->
+                Icon(
+                    imageVector = if (index < averageRating) Icons.Default.Star else Icons.Default.StarBorder,
+                    contentDescription = "Rating star",
+                    tint = Yellow,
+                    modifier = Modifier.size(16.dp)
+                )
+            }
+            Spacer(Modifier.width(8.dp))
+            Text(
+                text = "${String.format(JavaUtilLocale.getDefault(), "%.1f", averageRating)} ($reviewCount reviews)",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }
+        Spacer(Modifier.height(24.dp))
+
+        Text("Details", style = MaterialTheme.typography.titleMedium)
+        Spacer(Modifier.height(8.dp))
+        ProductInfoRow("Brand", p.brand)
+        ProductInfoRow("Availability", p.availabilityStatus)
+        ProductInfoRow("Weight", "${p.weight} kg")
+        ProductInfoRow("Warranty", p.warrantyInformation)
+        ProductInfoRow("Return Policy", p.returnPolicy)
+        Spacer(Modifier.height(24.dp))
+
+        Text("Description", style = MaterialTheme.typography.titleMedium)
+        Spacer(Modifier.height(8.dp))
+        Text(p.description, style = MaterialTheme.typography.bodyMedium)
+        Spacer(Modifier.height(24.dp))
+
+        Text("Reviews ($reviewCount)", style = MaterialTheme.typography.titleMedium)
+        Spacer(Modifier.height(8.dp))
+        if (p.reviews.isEmpty()) {
+            Text("This product has no reviews yet.", style = MaterialTheme.typography.bodyMedium, color = TextGrey)
+        } else {
+            p.reviews.forEach { review ->
+                ProductReviewItem(review = review)
+            }
+        }
+        Spacer(Modifier.height(16.dp))
     }
-    Spacer(Modifier.height(16.dp))
-    Text("Description", style = MaterialTheme.typography.titleMedium)
-    Spacer(Modifier.height(8.dp))
-    repeat(10) { Text(p.description, style = MaterialTheme.typography.bodyMedium) }
 }
 
 @Composable private fun Loading() =
-    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), Alignment.Center) { CircularProgressIndicator() }
+    Box(Modifier
+        .fillMaxSize()
+        .background(MaterialTheme.colorScheme.background), Alignment.Center) { CircularProgressIndicator() }
 
 @Composable private fun Error(msg: String) =
-    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), Alignment.Center) { Text("Error: $msg") }
+    Box(Modifier
+        .fillMaxSize()
+        .background(MaterialTheme.colorScheme.background), Alignment.Center) { Text("Error: $msg") }
 
 @Composable private fun AddToCartButton(modifier: Modifier = Modifier, onClick: () -> Unit) = Button(
     onClick = { onClick() },

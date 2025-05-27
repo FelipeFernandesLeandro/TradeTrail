@@ -41,7 +41,20 @@ class ProductDetailViewModel @Inject constructor(
             uiState = uiState.copy(isLoading = true)
             try {
                 val product = productRepo.fetchProduct(id.toString())
-                uiState = uiState.copy(product = product, isLoading = false, success = true, error = null)
+                val reviewCount = product.reviews.size
+                val averageRating = if (reviewCount > 0) {
+                    product.reviews.sumOf { it.rating }.toDouble() / reviewCount
+                } else {
+                    0.0
+                }
+                uiState = uiState.copy(
+                    product = product,
+                    isLoading = false,
+                    success = true,
+                    error = null,
+                    averageRating = averageRating,
+                    reviewCount = reviewCount
+                )
             } catch (e: Exception) {
                 uiState = uiState.copy(isLoading = false, success = false, error = e.message)
             }

@@ -80,6 +80,7 @@ fun ProductImageCarousel(
 
 @Composable
 fun PagerIndicator(pageCount: Int, currentPageIndex: Int, modifier: Modifier = Modifier) {
+    if (pageCount <= 1) return
     Row(
         modifier = modifier
             .wrapContentHeight()
