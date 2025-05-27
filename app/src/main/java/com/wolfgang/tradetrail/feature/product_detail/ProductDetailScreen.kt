@@ -1,4 +1,4 @@
-package com.wolfgang.tradetrail.feature.catalog
+package com.wolfgang.tradetrail.feature.product_detail
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -51,9 +51,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.wolfgang.tradetrail.core.designsystem.TextGrey
 import com.wolfgang.tradetrail.core.designsystem.Yellow
 import com.wolfgang.tradetrail.core.designsystem.component.TTAppBar
-import com.wolfgang.tradetrail.feature.catalog.ui.ProductImageCarousel
-import com.wolfgang.tradetrail.feature.catalog.ui.ProductInfoRow
-import com.wolfgang.tradetrail.feature.catalog.ui.ProductReviewItem
+import com.wolfgang.tradetrail.feature.product_detail.ui.ProductImageCarousel
+import com.wolfgang.tradetrail.feature.product_detail.ui.ProductInfoRow
+import com.wolfgang.tradetrail.feature.product_detail.ui.ProductReviewItem
 import com.wolfgang.tradetrail.feature.checkout.formatted
 import kotlinx.coroutines.flow.filterNotNull
 import java.util.Locale as JavaUtilLocale

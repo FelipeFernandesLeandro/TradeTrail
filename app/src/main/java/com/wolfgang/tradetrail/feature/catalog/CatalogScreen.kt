@@ -32,7 +32,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.wolfgang.tradetrail.core.data.model.Product
 import com.wolfgang.tradetrail.core.designsystem.component.TTAppBar
-import com.wolfgang.tradetrail.feature.catalog.ui.ProductCard
+import com.wolfgang.tradetrail.feature.product_detail.ui.ProductCard
 
 @Composable
 fun CatalogScreen(

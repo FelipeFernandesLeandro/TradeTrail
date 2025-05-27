@@ -1,4 +1,4 @@
-package com.wolfgang.tradetrail.feature.catalog.ui
+package com.wolfgang.tradetrail.feature.product_detail.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

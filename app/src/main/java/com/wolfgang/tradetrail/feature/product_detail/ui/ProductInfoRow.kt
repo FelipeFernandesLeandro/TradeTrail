@@ -1,4 +1,4 @@
-package com.wolfgang.tradetrail.feature.catalog.ui
+package com.wolfgang.tradetrail.feature.product_detail.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.wolfgang.tradetrail.core.designsystem.TextGrey
 
@@ -32,7 +33,7 @@ fun ProductInfoRow(label: String, value: String) {
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(0.6f),
-            textAlign = androidx.compose.ui.text.style.TextAlign.End
+            textAlign = TextAlign.End
         )
     }
 }

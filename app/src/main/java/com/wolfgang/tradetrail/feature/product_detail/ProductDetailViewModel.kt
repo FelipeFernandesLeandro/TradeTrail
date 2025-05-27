@@ -1,4 +1,4 @@
-package com.wolfgang.tradetrail.feature.catalog
+package com.wolfgang.tradetrail.feature.product_detail
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

@@ -16,7 +16,7 @@ import com.wolfgang.tradetrail.feature.auth.LoginScreen
 import com.wolfgang.tradetrail.feature.auth.LoginViewModel
 import com.wolfgang.tradetrail.feature.catalog.CatalogScreen
 import com.wolfgang.tradetrail.feature.catalog.CatalogViewModel
-import com.wolfgang.tradetrail.feature.catalog.ProductDetailScreen
+import com.wolfgang.tradetrail.feature.product_detail.ProductDetailScreen
 import com.wolfgang.tradetrail.feature.checkout.CheckoutScreen
 import com.wolfgang.tradetrail.navigation.NavKeys
 import com.wolfgang.tradetrail.navigation.Screen
