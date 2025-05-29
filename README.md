@@ -89,6 +89,10 @@ This project demonstrates experience with various tools and concepts valued in c
 * **UI/UX Best Practices:** Focus on creating a fluid and intuitive user experience, with visual feedback (Lottie animations, loading states) and clear navigation.
 * **State Management in Compose:** Use of `StateFlow`, `MutableState`, and other Compose state primitives to manage UI state effectively, reactively, and predictably.
 
+## 📲 Test the Application!
+
+You can download and install the APK directly on your Android device via the project's [Releases page](https://github.com/FelipeFernandesLeandro/TradeTrail/releases). This allows for a quick way to see the app in action without needing to build it from source.
+
 ## 🚀 How to Build and Run
 
 1.  Clone this repository: `git clone https://github.com/FelipeFernandesLeandro/TradeTrail.git`
